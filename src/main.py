@@ -5,15 +5,17 @@ from pathlib import Path
 import numpy as np
 from sklearn.metrics import mean_absolute_error
 
-from data_load import load_data
-from features import make_features
-from model_mlp import time_split_index, build_preprocessor, ridge_baseline, mlp_search, naive_predictions
-from evaluate import regression_report, plot_pred_vs_actual, plot_residual_hist
+from src.data_load import load_data
+from src.features import make_features
+from src.model_mlp import time_split_index, build_preprocessor, ridge_baseline, mlp_search, naive_predictions
+from src.evaluate import regression_report, plot_pred_vs_actual, plot_residual_hist, plot_sales_trend
 
 def run(horizon:int=1):
     Path("outputs").mkdir(exist_ok=True, parents=True)
     # 1) Load data
     df = load_data()
+    # Quick EDA plot for PPT (time-aware trends)
+    plot_sales_trend(df["date"], df["sales"])
 
     # 2) Features (leakage-safe)
     X, y, feature_cols, df_dates = make_features(df, horizon=horizon)

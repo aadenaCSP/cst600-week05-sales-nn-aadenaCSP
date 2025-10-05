@@ -33,3 +33,12 @@ def plot_residual_hist(residuals, out_path="figures/residual_hist.png", title="R
     plt.tight_layout()
     plt.savefig(out_path, dpi=150)
     plt.close()
+
+def plot_sales_trend(dates, sales, out_path="figures/sales_trend.png", title="Sales Over Time"):
+    import matplotlib.pyplot as plt
+    from pathlib import Path
+    Path("figures").mkdir(parents=True, exist_ok=True)
+    plt.figure(figsize=(10,4))
+    plt.plot(dates, sales)
+    plt.title(title); plt.xlabel("Date"); plt.ylabel("Sales")
+    plt.tight_layout(); plt.savefig(out_path, dpi=150); plt.close()
